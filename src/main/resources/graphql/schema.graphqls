@@ -1,0 +1,41 @@
+# Response type
+type ProductResponse {
+    id: ID!
+    name: String!
+    description: String
+    price: Float!
+    stock: Int
+    status: ProductStatus!
+    createdAt: String!
+    updatedAt: String
+}
+
+enum ProductStatus {
+    ACTIVE
+    BLOCKED
+    DELETED
+}
+
+# Input type for mutations
+input ProductRequest {
+    name: String!
+    description: String
+    price: Float!
+    stock: Int
+    status: ProductStatus
+}
+
+# Queries
+type Query {
+    products(status: ProductStatus): [ProductResponse]!
+    activeProducts: [ProductResponse]!
+    product(id: ID!): ProductResponse
+    searchProducts(name: String!): [ProductResponse]!
+}
+
+# Mutations
+type Mutation {
+    createProduct(input: ProductRequest!): ProductResponse!
+    updateProduct(id: ID!, input: ProductRequest!): ProductResponse!
+    deleteProduct(id: ID!): Boolean!
+}
