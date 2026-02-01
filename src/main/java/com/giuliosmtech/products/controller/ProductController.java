@@ -1,6 +1,7 @@
 package com.giuliosmtech.products.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -40,6 +41,11 @@ public class ProductController {
 	}
 	
 	@PostMapping
+	/**
+	 * Creates a new product.
+	 * @param productRequest the product data to create
+	 * @return the created product
+	 */
 	@Operation(summary = "Create a new product", description = "Creates a new product with the provided details")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Product created successfully"),
@@ -54,13 +60,19 @@ public class ProductController {
 	}
 	
 	@PutMapping("/{id}")
+	/**
+	 * Updates an existing product.
+	 * @param id the product ID
+	 * @param productRequest the updated product data
+	 * @return the updated product
+	 */
 	@Operation(summary = "Update a product", description = "Updates an existing product by ID")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Product updated successfully"),
 			@ApiResponse(responseCode = "400", description = "Invalid input data"),
 			@ApiResponse(responseCode = "404", description = "Product not found")
 	})
-	public ResponseEntity<ProductResponse> update(@PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
+	public ResponseEntity<ProductResponse> update(@NotNull @PathVariable Long id, @Valid @RequestBody ProductRequest productRequest) {
 		
 		try {
 			
@@ -79,12 +91,17 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{id}")
+	/**
+	 * Deletes a product.
+	 * @param id the product ID
+	 * @return no content response
+	 */
 	@Operation(summary = "Delete a product", description = "Soft deletes a product by setting its deleted flag to true")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "204", description = "Product deleted successfully"),
 			@ApiResponse(responseCode = "404", description = "Product not found")
 	})
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@NotNull @PathVariable Long id) {
 		
 		try {
 			productService.delete(id);
@@ -96,6 +113,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/active")
+	/**
+	 * Retrieves all active products.
+	 * @return list of active products
+	 */
 	@Operation(summary = "Get all active products", description = "Retrieves a list of products with ACTIVE status")
 	@ApiResponse(responseCode = "200", description = "List of active products")
 	public ResponseEntity<List<ProductResponse>> getActiveProducts() {
@@ -107,12 +128,17 @@ public class ProductController {
 	}
 		
 	@GetMapping("/{id}")
+	/**
+	 * Retrieves a product by ID.
+	 * @param id the product ID
+	 * @return the product if found
+	 */
 	@Operation(summary = "Get product by ID", description = "Retrieves a product by its ID")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Product found"),
 			@ApiResponse(responseCode = "404", description = "Product not found")
 	})
-	public ResponseEntity<ProductResponse> getById(@PathVariable Long id) {
+	public ResponseEntity<ProductResponse> getById(@NotNull @PathVariable Long id) {
 		
 		return productService.getById(id)
 				.map(ResponseEntity::ok)
@@ -121,9 +147,14 @@ public class ProductController {
 	}
 	
 	@GetMapping("/name/{name}")
+	/**
+	 * Retrieves products by name.
+	 * @param name the product name
+	 * @return list of products with the given name
+	 */
 	@Operation(summary = "Get products by name", description = "Retrieves products that match the exact name")
 	@ApiResponse(responseCode = "200", description = "List of products retrieved")
-	public ResponseEntity<List<ProductResponse>> getByName(@PathVariable String name) {
+	public ResponseEntity<List<ProductResponse>> getByName(@NotNull @PathVariable String name) {
 		
 		List<ProductResponse> products = productService.getByName(name);
 		
@@ -133,9 +164,14 @@ public class ProductController {
 	
 	
 	@GetMapping("/search")
+	/**
+	 * Searches products by term.
+	 * @param term the search term
+	 * @return list of matching products
+	 */
 	@Operation(summary = "Search products by term", description = "Searches products whose name contains the term (case-insensitive)")
 	@ApiResponse(responseCode = "200", description = "List of matching products")
-	public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam String term) {
+	public ResponseEntity<List<ProductResponse>> searchProducts(@NotNull @RequestParam String term) {
 		
 		List<ProductResponse> products = productService.searchProductsByTerm(term);
 		

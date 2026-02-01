@@ -21,6 +21,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * JPA entity representing a product with its attributes and lifecycle management.
+ */
 @Builder
 @Getter
 @Setter

@@ -13,6 +13,9 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
+/**
+ * Configuration class for OpenAPI documentation.
+ */
 public class OpenApiConfig {
 
     @Bean
@@ -24,14 +27,14 @@ public class OpenApiConfig {
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Giuliosmtech Team")
-                                .email("support@giuliosmtech.com")
+                                .email("contacto@giuliosmtech.com")
                                 .url("https://www.giuliosmtech.com"))
                         .license(new License()
                                 .name("MIT")
                                 .url("https://opensource.org/licenses/MIT")))
                 .externalDocs(new ExternalDocumentation()
                         .description("GitHub Repository")
-                        .url("https://github.com/giuliosmtech/springboot-graphql-api"))
+                        .url("https://github.com/francisgf/springboot-graphql-api.git"))
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:8080")
