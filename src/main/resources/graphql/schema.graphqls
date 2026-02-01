@@ -27,7 +27,7 @@ input ProductRequest {
 
 # Queries
 type Query {
-    products(status: ProductStatus): [ProductResponse]!
+    products(status: ProductStatus!): [ProductResponse]!
     activeProducts: [ProductResponse]!
     product(id: ID!): ProductResponse
     searchProducts(name: String!): [ProductResponse]!

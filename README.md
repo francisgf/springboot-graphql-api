@@ -33,7 +33,7 @@ Modern GraphQL interface with mutations and queries :
   - `updateProduct(id: ID!, input: ProductRequest!)` - Update product
   - `deleteProduct(id: ID!)` - Soft delete product
 - **Queries**:
-  - `products(status: ProductStatus)` - List products with optional status filter
+  - `products(status: ProductStatus!)` - List products filtered by required status
   - `activeProducts` - Get only active products
   - `product(id: ID!)` - Get single product
   - `searchProducts(name: String!)` - Search by name
@@ -168,10 +168,10 @@ mutation {
 
 #### Queries
 
-**Get All Products**
+**Get All Products** (Note: `status` is now required)
 ```graphql
 query {
-  products {
+  products(status: ACTIVE) {
     id
     name
     description
@@ -184,10 +184,10 @@ query {
 }
 ```
 
-**Get Products by Status**
+**Get Products by Status** (Example with BLOCKED status)
 ```graphql
 query {
-  products(status: ACTIVE) {
+  products(status: BLOCKED) {
     id
     name
     description

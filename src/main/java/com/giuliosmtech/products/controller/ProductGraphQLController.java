@@ -31,16 +31,13 @@ public class ProductGraphQLController {
     
     
     /**
-     * Retrieves products, optionally filtered by status.
-     * @param status optional product status filter
+     * Retrieves products filtered by status (required).
+     * @param status product status filter (required)
      * @return list of products
      */
     @QueryMapping(name = "products")
-    public List<ProductResponse> products(@Argument ProductStatus status) {
-        if (status != null) {
-            return productService.getByStatus(status);
-        }
-        return productService.getAll();
+    public List<ProductResponse> products(@Argument @NotNull ProductStatus status) {
+        return productService.getByStatus(status);
     }
     
     /**
